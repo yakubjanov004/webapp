@@ -108,13 +108,13 @@ export default function App() {
     }
     document.head.appendChild(script)
 
-    // Fallback timeout - if SDK doesn't load within 3 seconds, proceed anyway
+    // Fallback timeout - if SDK doesn't load within 1 second, proceed anyway
     timeoutId = setTimeout(() => {
       if (!isWebAppReady) {
         console.log("Telegram WebApp SDK timeout, using fallback")
         initializeApp()
       }
-    }, 3000)
+    }, 1000)
 
     return () => {
       if (timeoutId) clearTimeout(timeoutId)
