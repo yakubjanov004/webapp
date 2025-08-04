@@ -10,7 +10,7 @@ const nextConfig = {
     domains: ["t.me", "cdn.telegram.org"],
     unoptimized: true,
   },
-  assetPrefix: process.env.NODE_ENV === "production" ? "/telegram-chat-webapp" : "",
+  // assetPrefix: process.env.NODE_ENV === "production" ? "/telegram-chat-webapp" : "",
   trailingSlash: true,
   output: "export",
 }
