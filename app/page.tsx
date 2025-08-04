@@ -124,17 +124,17 @@ export default function App() {
     }
   }, [])
 
-  if (!isWebAppReady) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-lg font-medium text-gray-700 dark:text-gray-300">Alfa Connect yuklanmoqda...</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Iltimos, kuting</p>
-        </div>
-      </div>
-    )
-  }
+  // if (!isWebAppReady) {
+  //   return (
+  //     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
+  //       <div className="text-center">
+  //         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500 mx-auto mb-4"></div>
+  //         <p className="text-lg font-medium text-gray-700 dark:text-gray-300">Alfa Connect yuklanmoqda...</p>
+  //         <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Iltimos, kuting</p>
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
   return (
     <ThemeProvider isDarkMode={isDarkMode}>
