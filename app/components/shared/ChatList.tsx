@@ -10,10 +10,10 @@ export default function ChatList({ chats, users, onChatSelect, isDarkMode, curre
     const activity = new Date(timestamp)
     const diffInMinutes = Math.floor((now - activity) / (1000 * 60))
 
-    if (diffInMinutes < 1) return "Just now"
-    if (diffInMinutes < 60) return `${diffInMinutes}m ago`
-    if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)}h ago`
-    return activity.toLocaleDateString()
+    if (diffInMinutes < 1) return "Hozirgina"
+    if (diffInMinutes < 60) return `${diffInMinutes}min oldin`
+    if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)}soat oldin`
+    return activity.toLocaleDateString("uz-UZ")
   }
 
   const getOtherUserId = (chat) => {
@@ -58,7 +58,7 @@ export default function ChatList({ chats, users, onChatSelect, isDarkMode, curre
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between mb-1">
                   <h3 className={`font-semibold truncate ${isDarkMode ? "text-white" : "text-gray-900"}`}>
-                    {otherUser?.name || "Unknown User"}
+                    {otherUser?.name || "Noma'lum foydalanuvchi"}
                   </h3>
                   <div className="flex items-center space-x-2">
                     {unreadCount > 0 && (
@@ -78,7 +78,7 @@ export default function ChatList({ chats, users, onChatSelect, isDarkMode, curre
                   {isTyping ? (
                     <div className={`text-sm italic ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
                       <span className="inline-flex space-x-1">
-                        <span>Typing</span>
+                        <span>Yozmoqda</span>
                         <span className="flex space-x-1">
                           <span className="w-1 h-1 bg-current rounded-full animate-bounce"></span>
                           <span
@@ -96,11 +96,11 @@ export default function ChatList({ chats, users, onChatSelect, isDarkMode, curre
                     <p className={`text-sm truncate ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
                       {chat.lastMessage ? (
                         <>
-                          {chat.lastMessage.senderId === currentUserId && "You: "}
+                          {chat.lastMessage.senderId === currentUserId && "Siz: "}
                           {chat.lastMessage.text}
                         </>
                       ) : (
-                        "No messages yet"
+                        "Hali xabar yo'q"
                       )}
                     </p>
                   )}
@@ -113,7 +113,7 @@ export default function ChatList({ chats, users, onChatSelect, isDarkMode, curre
                           isDarkMode ? "bg-green-900/30 text-green-400" : "bg-green-100 text-green-800"
                         }`}
                       >
-                        Active
+                        Faol
                       </span>
                     )}
                     {showOpenButton && (
@@ -128,7 +128,7 @@ export default function ChatList({ chats, users, onChatSelect, isDarkMode, curre
                             : "bg-purple-500 text-white hover:bg-purple-600"
                         }`}
                       >
-                        Open
+                        Ochish
                       </button>
                     )}
                   </div>

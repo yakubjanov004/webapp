@@ -3,7 +3,7 @@
 export default function ClosedChats({ chats, users, onChatSelect, isDarkMode, currentUserId }) {
   const formatDate = (timestamp) => {
     const date = new Date(timestamp)
-    return date.toLocaleDateString("en-US", {
+    return date.toLocaleDateString("uz-UZ", {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -13,10 +13,10 @@ export default function ClosedChats({ chats, users, onChatSelect, isDarkMode, cu
   const formatDuration = (createdAt, closedAt) => {
     const duration = new Date(closedAt) - new Date(createdAt)
     const minutes = Math.floor(duration / (1000 * 60))
-    if (minutes < 60) return `${minutes}m`
+    if (minutes < 60) return `${minutes}min`
     const hours = Math.floor(minutes / 60)
     const remainingMinutes = minutes % 60
-    return `${hours}h ${remainingMinutes}m`
+    return `${hours}soat ${remainingMinutes}min`
   }
 
   const getOtherUserId = (chat) => {
@@ -33,17 +33,17 @@ export default function ClosedChats({ chats, users, onChatSelect, isDarkMode, cu
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
-        <h2 className={`text-2xl font-bold ${isDarkMode ? "text-white" : "text-gray-900"}`}>Chat History</h2>
+        <h2 className={`text-2xl font-bold ${isDarkMode ? "text-white" : "text-gray-900"}`}>Chat tarixi</h2>
         <span className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
-          {chats.length} closed sessions
+          {chats.length} ta yopilgan sessiya
         </span>
       </div>
 
       {Object.keys(groupedChats).length === 0 ? (
         <div className={`text-center py-12 ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
           <div className="text-6xl mb-4">📝</div>
-          <h3 className="text-xl font-semibold mb-2">No closed chats</h3>
-          <p>Completed conversations will appear here for reference.</p>
+          <h3 className="text-xl font-semibold mb-2">Yopilgan chatlar yo'q</h3>
+          <p>Tugatilgan suhbatlar ma'lumot uchun bu yerda ko'rinadi.</p>
         </div>
       ) : (
         Object.entries(groupedChats)
@@ -78,7 +78,7 @@ export default function ClosedChats({ chats, users, onChatSelect, isDarkMode, cu
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between mb-1">
                             <h4 className={`font-semibold ${isDarkMode ? "text-white" : "text-gray-900"}`}>
-                              {otherUser?.name || "Unknown User"}
+                              {otherUser?.name || "Noma'lum foydalanuvchi"}
                             </h4>
                             <div className="flex items-center space-x-2">
                               <span
@@ -97,10 +97,10 @@ export default function ClosedChats({ chats, users, onChatSelect, isDarkMode, cu
 
                           <div className="flex items-center justify-between">
                             <p className={`text-sm truncate ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-                              {chat.messages.length} messages
+                              {chat.messages.length} ta xabar
                             </p>
                             <span className={`text-xs ${isDarkMode ? "text-gray-500" : "text-gray-400"}`}>
-                              Closed {formatDate(chat.closedAt)}
+                              Yopilgan {formatDate(chat.closedAt)}
                             </span>
                           </div>
                         </div>

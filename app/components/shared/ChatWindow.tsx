@@ -69,7 +69,7 @@ export default function ChatWindow({
       : `${isDarkMode ? "bg-gray-800" : "bg-white"}`
 
   return (
-    <div className={`flex flex-col h-full ${windowClass} ${isFloating || isCompact ? "max-h-96" : "min-h-[600px]"}`}>
+    <div className={`flex flex-col h-full ${windowClass} ${isFloating || isCompact ? "max-h-80 sm:max-h-96" : "min-h-[400px] sm:min-h-[600px]"}`}>
       {/* Chat Header */}
       <ChatHeader
         user={otherUser}
@@ -87,9 +87,9 @@ export default function ChatWindow({
         <div
           ref={messagesContainerRef}
           onScroll={handleScroll}
-          className={`flex-1 overflow-y-auto px-4 py-4 space-y-4 ${
+          className={`flex-1 overflow-y-auto px-2 sm:px-4 py-2 sm:py-4 space-y-2 sm:space-y-4 ${
             isDarkMode ? "bg-gray-900" : "bg-gray-50"
-          } ${isFloating || isCompact ? "max-h-60" : ""}`}
+          } ${isFloating || isCompact ? "max-h-48 sm:max-h-60" : ""}`}
         >
           {chat.messages.map((message, index) => (
             <MessageBubble
@@ -106,7 +106,7 @@ export default function ChatWindow({
           {isTyping && (
             <div className="flex justify-start animate-fade-in">
               <div
-                className={`max-w-xs px-4 py-3 rounded-2xl rounded-bl-md ${
+                className={`max-w-xs px-3 sm:px-4 py-2 sm:py-3 rounded-2xl rounded-bl-md ${
                   isDarkMode ? "bg-gray-700 text-gray-300" : "bg-white text-gray-600"
                 }`}
               >
@@ -132,11 +132,11 @@ export default function ChatWindow({
         {showScrollButton && (
           <button
             onClick={() => scrollToBottom(true)}
-            className={`absolute bottom-20 right-4 w-10 h-10 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 z-10 ${
+            className={`absolute bottom-16 sm:bottom-20 right-2 sm:right-4 w-8 h-8 sm:w-10 sm:h-10 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 z-10 ${
               isDarkMode ? "bg-gray-700 hover:bg-gray-600 text-white" : "bg-white hover:bg-gray-50 text-gray-600"
             }`}
           >
-            <svg className="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
           </button>

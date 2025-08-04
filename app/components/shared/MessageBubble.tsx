@@ -13,7 +13,7 @@ export default function MessageBubble({ message, isOwnMessage, isDarkMode, isNew
   }, [isNew])
 
   const formatTime = (timestamp) => {
-    return new Date(timestamp).toLocaleTimeString("en-US", {
+    return new Date(timestamp).toLocaleTimeString("uz-UZ", {
       hour: "2-digit",
       minute: "2-digit",
       hour12: false,
@@ -27,7 +27,7 @@ export default function MessageBubble({ message, isOwnMessage, isDarkMode, isNew
       }`}
     >
       <div
-        className={`max-w-xs lg:max-w-md px-4 py-3 rounded-2xl shadow-sm relative group ${
+        className={`max-w-[280px] sm:max-w-xs lg:max-w-md px-3 sm:px-4 py-2 sm:py-3 rounded-2xl shadow-sm relative group ${
           isOwnMessage
             ? isDarkMode
               ? "bg-blue-600 text-white"
@@ -50,15 +50,15 @@ export default function MessageBubble({ message, isOwnMessage, isDarkMode, isNew
 
           {message.type === "image" && (
             <div className="rounded-lg overflow-hidden">
-              <img src={message.imageUrl || "/placeholder.svg"} alt="Shared image" className="max-w-full h-auto" />
+              <img src={message.imageUrl || "/placeholder.svg"} alt="Ulashilgan rasm" className="max-w-full h-auto" />
             </div>
           )}
 
           {message.type === "file" && (
-            <div className={`flex items-center space-x-3 p-3 rounded-lg ${isDarkMode ? "bg-gray-600" : "bg-gray-100"}`}>
-              <div className="text-2xl">📎</div>
-              <div>
-                <p className="text-sm font-medium">{message.fileName}</p>
+            <div className={`flex items-center space-x-2 sm:space-x-3 p-2 sm:p-3 rounded-lg ${isDarkMode ? "bg-gray-600" : "bg-gray-100"}`}>
+              <div className="text-xl sm:text-2xl">📎</div>
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-medium truncate">{message.fileName}</p>
                 <p className={`text-xs ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>{message.fileSize}</p>
               </div>
             </div>
@@ -76,7 +76,7 @@ export default function MessageBubble({ message, isOwnMessage, isDarkMode, isNew
           {/* Read Receipt for Own Messages */}
           {isOwnMessage && (
             <div className="flex space-x-1">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   fillRule="evenodd"
                   d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -89,7 +89,7 @@ export default function MessageBubble({ message, isOwnMessage, isDarkMode, isNew
 
         {/* Message Tail */}
         <div
-          className={`absolute top-3 w-4 h-4 ${isOwnMessage ? "-right-2" : "-left-2"} ${
+          className={`absolute top-2 sm:top-3 w-3 h-3 sm:w-4 sm:h-4 ${isOwnMessage ? "-right-1.5 sm:-right-2" : "-left-1.5 sm:-left-2"} ${
             isOwnMessage
               ? isDarkMode
                 ? "bg-blue-600"

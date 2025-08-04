@@ -8,8 +8,8 @@ export default function RoleSelector({ onRoleSelect, user, isDarkMode }) {
   const roles = [
     {
       id: "client",
-      title: "Client",
-      description: "Access your support chats and chat history",
+      title: "Mijoz",
+      description: "O'zingizning yordam chatlaringiz va chat tarixiga kirish",
       icon: "👤",
       color: "from-blue-500 to-blue-600",
       darkColor: "from-blue-600 to-blue-700",
@@ -17,7 +17,7 @@ export default function RoleSelector({ onRoleSelect, user, isDarkMode }) {
     {
       id: "callcenter",
       title: "Call Center",
-      description: "Manage multiple customer conversations",
+      description: "Bir nechta mijoz suhbatlarini boshqarish",
       icon: "🎧",
       color: "from-purple-500 to-purple-600",
       darkColor: "from-purple-600 to-purple-700",
@@ -33,9 +33,9 @@ export default function RoleSelector({ onRoleSelect, user, isDarkMode }) {
             💬
           </div>
           <h1 className={`text-3xl font-bold mb-2 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
-            Welcome, {user?.first_name}!
+            Xush kelibsiz, {user?.first_name}!
           </h1>
-          <p className={`${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>Select your role to continue</p>
+          <p className={`${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>Davom etish uchun rolingizni tanlang</p>
         </div>
 
         {/* Role Cards */}
@@ -86,7 +86,7 @@ export default function RoleSelector({ onRoleSelect, user, isDarkMode }) {
             }
           `}
         >
-          {selectedRole ? "Continue as " + roles.find((r) => r.id === selectedRole)?.title : "Select a role"}
+          {selectedRole ? "Davom etish: " + roles.find((r) => r.id === selectedRole)?.title : "Rolni tanlang"}
         </button>
       </div>
     </div>

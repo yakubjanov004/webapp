@@ -34,24 +34,23 @@ export default function WelcomeScreen({ onContinue, user, isDarkMode }) {
 
         {/* Welcome Text */}
         <h1 className={`text-3xl font-bold mb-4 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
-          Welcome to Telegram Web Chat
+          Telegram Web Chat ga xush kelibsiz
         </h1>
 
         <p className={`text-lg mb-2 ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
-          Hello, <span className="font-semibold text-blue-500">{user?.first_name || "User"}</span>!
+          Salom, <span className="font-semibold text-blue-500">{user?.first_name || "Foydalanuvchi"}</span>!
         </p>
 
         <p className={`mb-8 leading-relaxed ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-          Experience seamless messaging with our modern, beautiful chat interface designed specifically for Telegram
-          WebApps.
+          Telegram WebApp uchun maxsus yaratilgan zamonaviy, chiroyli chat interfeysi bilan uzluksiz xabar almashish tajribasini boshqang.
         </p>
 
         {/* Features */}
         <div className="mb-8 space-y-3">
           {[
-            { icon: "💬", text: "Real-time messaging" },
-            { icon: "🌙", text: "Dark mode support" },
-            { icon: "📱", text: "Mobile-optimized" },
+            { icon: "💬", text: "Real vaqtda xabar almashish" },
+            { icon: "🌙", text: "Qorong'i rejim qo'llab-quvvatlash" },
+            { icon: "📱", text: "Mobil qurilmalarga moslashgan" },
           ].map((feature, index) => (
             <div
               key={index}
@@ -75,7 +74,7 @@ export default function WelcomeScreen({ onContinue, user, isDarkMode }) {
               : "bg-blue-500 hover:bg-blue-600 text-white shadow-lg hover:shadow-xl"
           }`}
         >
-          Start Chatting
+          Chatlashishni boshlash
         </button>
       </div>
     </div>

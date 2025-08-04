@@ -97,11 +97,11 @@ export function ChatProvider({ children }: ChatProviderProps) {
     setTimeout(
       () => {
         const responses = [
-          "Thanks for reaching out! How can I help you today?",
-          "I understand your concern. Let me look into that for you.",
-          "That's a great question! Here's what I can tell you...",
-          "I'm here to help! Can you provide more details?",
-          "Thank you for the information. I'll get back to you shortly.",
+          "Xabar uchun rahmat! Bugun sizga qanday yordam bera olaman?",
+          "Sizning muammongizni tushundim. Keling, buni hal qilaylik.",
+          "Bu juda yaxshi savol! Mana sizga aytishim mumkin...",
+          "Sizga yordam berishga tayyorman! Batafsil ma'lumot bera olasizmi?",
+          "Ma'lumot uchun rahmat. Tez orada siz bilan bog'lanaman.",
         ]
 
         const responseMessage: Message = {
@@ -154,7 +154,7 @@ export function ChatProvider({ children }: ChatProviderProps) {
     // ws.send(JSON.stringify({ type: 'close_chat', chatId }))
   }
 
-  const startNewChat = (clientId: string, subject: string = "New Chat"): string => {
+  const startNewChat = (clientId: string, subject: string = "Yangi chat"): string => {
     const newChat: ChatSession = {
       id: Date.now().toString(),
       clientId,
@@ -166,7 +166,7 @@ export function ChatProvider({ children }: ChatProviderProps) {
       messages: [
         {
           id: "welcome",
-          text: "Hello! How can I help you today?",
+          text: "Salom! Bugun sizga qanday yordam bera olaman?",
           senderId: "support",
           timestamp: new Date(),
           type: "text",
