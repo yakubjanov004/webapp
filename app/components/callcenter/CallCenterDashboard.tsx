@@ -7,11 +7,24 @@ import ChatWindow from "../shared/ChatWindow"
 import ClosedChats from "../shared/ClosedChats"
 import FloatingActionButton from "./FloatingActionButton"
 
-export default function CallCenterDashboard({ user, isDarkMode, onRoleChange }) {
+interface TelegramUser {
+  first_name: string
+  last_name: string
+  username: string
+  id: number
+}
+
+interface CallCenterDashboardProps {
+  user: TelegramUser
+  isDarkMode: boolean
+  onRoleChange: () => void
+}
+
+export default function CallCenterDashboard({ user, isDarkMode, onRoleChange }: CallCenterDashboardProps) {
   const { chatSessions, users, activeChats, addToActiveChats, removeFromActiveChats } = useChat()
   const [activeView, setActiveView] = useState("dashboard")
-  const [selectedChatId, setSelectedChatId] = useState(null)
-  const [openChatWindows, setOpenChatWindows] = useState([])
+  const [selectedChatId, setSelectedChatId] = useState<string | null>(null)
+  const [openChatWindows, setOpenChatWindows] = useState<string[]>([])
 
   const openChats = chatSessions.filter((chat) => chat.status === "active")
   const closedChats = chatSessions.filter((chat) => chat.status === "closed")
@@ -20,14 +33,14 @@ export default function CallCenterDashboard({ user, isDarkMode, onRoleChange }) 
     return timeSinceLastActivity > 1800000 // 30 minutes
   })
 
-  const handleOpenChatWindow = (chatId) => {
+  const handleOpenChatWindow = (chatId: string) => {
     if (!openChatWindows.includes(chatId)) {
       setOpenChatWindows((prev) => [...prev, chatId])
     }
     addToActiveChats(chatId)
   }
 
-  const handleCloseChatWindow = (chatId) => {
+  const handleCloseChatWindow = (chatId: string) => {
     setOpenChatWindows((prev) => prev.filter((id) => id !== chatId))
     removeFromActiveChats(chatId)
   }
@@ -133,6 +146,7 @@ export default function CallCenterDashboard({ user, isDarkMode, onRoleChange }) 
               chat={selectedChat}
               currentUserId="support"
               onBack={() => setSelectedChatId(null)}
+              onClose={() => setSelectedChatId(null)}
               isDarkMode={isDarkMode}
               isReadOnly={selectedChat.status === "closed"}
             />
@@ -232,6 +246,7 @@ export default function CallCenterDashboard({ user, isDarkMode, onRoleChange }) 
                           <ChatWindow
                             chat={chat}
                             currentUserId="support"
+                            onBack={() => {}}
                             isDarkMode={isDarkMode}
                             isCompact={true}
                             onClose={() => handleCloseChatWindow(chatId)}
@@ -272,6 +287,7 @@ export default function CallCenterDashboard({ user, isDarkMode, onRoleChange }) 
             <ChatWindow
               chat={chat}
               currentUserId="support"
+              onBack={() => {}}
               isDarkMode={isDarkMode}
               isFloating={true}
               onClose={() => handleCloseChatWindow(chatId)}

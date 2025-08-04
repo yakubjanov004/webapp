@@ -1,16 +1,55 @@
 "use client"
 
-import { createContext, useContext, useState, useEffect } from "react"
+import { createContext, useContext, useState, useEffect, ReactNode } from "react"
 import { mockChatSessions, mockUsers } from "../data/mockData"
 
-const ChatContext = createContext()
+interface Message {
+  id: string
+  text: string
+  senderId: string
+  timestamp: Date
+  type: string
+}
 
-export function ChatProvider({ children }) {
-  const [chatSessions, setChatSessions] = useState(mockChatSessions)
+interface ChatSession {
+  id: string
+  clientId: string
+  supportId: string
+  subject: string
+  status: string
+  createdAt: Date
+  lastActivity: Date
+  messages: Message[]
+  lastMessage: Message | null
+  closedAt?: Date
+}
+
+interface ChatContextType {
+  chatSessions: ChatSession[]
+  users: any[]
+  activeChats: string[]
+  typingUsers: Record<string, boolean>
+  unreadCounts: Record<string, number>
+  sendMessage: (chatId: string, message: string, senderId: string) => void
+  closeChat: (chatId: string) => void
+  startNewChat: (clientId: string, subject?: string) => string
+  markAsRead: (chatId: string, userId: string) => void
+  addToActiveChats: (chatId: string) => void
+  removeFromActiveChats: (chatId: string) => void
+}
+
+const ChatContext = createContext<ChatContextType | undefined>(undefined)
+
+interface ChatProviderProps {
+  children: ReactNode
+}
+
+export function ChatProvider({ children }: ChatProviderProps) {
+  const [chatSessions, setChatSessions] = useState<ChatSession[]>(mockChatSessions)
   const [users] = useState(mockUsers)
-  const [activeChats, setActiveChats] = useState([]) // For callcenter multi-chat
-  const [typingUsers, setTypingUsers] = useState({}) // userId -> isTyping
-  const [unreadCounts, setUnreadCounts] = useState({})
+  const [activeChats, setActiveChats] = useState<string[]>([])
+  const [typingUsers, setTypingUsers] = useState<Record<string, boolean>>({})
+  const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>({})
 
   // WebSocket placeholder - where real-time connection would be established
   useEffect(() => {
@@ -21,8 +60,8 @@ export function ChatProvider({ children }) {
     // return () => ws.close()
   }, [])
 
-  const sendMessage = (chatId, message, senderId) => {
-    const newMessage = {
+  const sendMessage = (chatId: string, message: string, senderId: string) => {
+    const newMessage: Message = {
       id: Date.now().toString(),
       text: message,
       senderId,
@@ -51,7 +90,7 @@ export function ChatProvider({ children }) {
     simulateResponse(chatId, senderId)
   }
 
-  const simulateResponse = (chatId, originalSenderId) => {
+  const simulateResponse = (chatId: string, originalSenderId: string) => {
     // Show typing indicator
     setTypingUsers((prev) => ({ ...prev, [chatId]: true }))
 
@@ -65,7 +104,7 @@ export function ChatProvider({ children }) {
           "Thank you for the information. I'll get back to you shortly.",
         ]
 
-        const responseMessage = {
+        const responseMessage: Message = {
           id: (Date.now() + 1).toString(),
           text: responses[Math.floor(Math.random() * responses.length)],
           senderId: originalSenderId === "client" ? "support" : "client",
@@ -94,7 +133,7 @@ export function ChatProvider({ children }) {
     )
   }
 
-  const closeChat = (chatId) => {
+  const closeChat = (chatId: string) => {
     setChatSessions((prev) =>
       prev.map((chat) => {
         if (chat.id === chatId) {
@@ -115,8 +154,8 @@ export function ChatProvider({ children }) {
     // ws.send(JSON.stringify({ type: 'close_chat', chatId }))
   }
 
-  const startNewChat = (clientId, subject = "New Chat") => {
-    const newChat = {
+  const startNewChat = (clientId: string, subject: string = "New Chat"): string => {
+    const newChat: ChatSession = {
       id: Date.now().toString(),
       clientId,
       supportId: "support",
@@ -140,18 +179,18 @@ export function ChatProvider({ children }) {
     return newChat.id
   }
 
-  const markAsRead = (chatId, userId) => {
+  const markAsRead = (chatId: string, userId: string) => {
     setUnreadCounts((prev) => ({
       ...prev,
       [`${chatId}-${userId}`]: 0,
     }))
   }
 
-  const addToActiveChats = (chatId) => {
+  const addToActiveChats = (chatId: string) => {
     setActiveChats((prev) => [...prev.filter((id) => id !== chatId), chatId])
   }
 
-  const removeFromActiveChats = (chatId) => {
+  const removeFromActiveChats = (chatId: string) => {
     setActiveChats((prev) => prev.filter((id) => id !== chatId))
   }
 

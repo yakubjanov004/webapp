@@ -6,13 +6,26 @@ import ChatList from "../shared/ChatList"
 import ChatWindow from "../shared/ChatWindow"
 import ClosedChats from "../shared/ClosedChats"
 
-export default function ClientDashboard({ user, isDarkMode, onRoleChange }) {
+interface TelegramUser {
+  first_name: string
+  last_name: string
+  username: string
+  id: number
+}
+
+interface ClientDashboardProps {
+  user: TelegramUser
+  isDarkMode: boolean
+  onRoleChange: () => void
+}
+
+export default function ClientDashboard({ user, isDarkMode, onRoleChange }: ClientDashboardProps) {
   const { chatSessions, users } = useChat()
   const [activeView, setActiveView] = useState("active")
-  const [selectedChatId, setSelectedChatId] = useState(null)
+  const [selectedChatId, setSelectedChatId] = useState<string | null>(null)
 
   // Filter chats for this client
-  const clientChats = chatSessions.filter((chat) => chat.clientId === user.id)
+  const clientChats = chatSessions.filter((chat) => chat.clientId === user.id.toString())
   const activeChats = clientChats.filter((chat) => chat.status === "active")
   const closedChats = clientChats.filter((chat) => chat.status === "closed")
 
@@ -93,8 +106,9 @@ export default function ClientDashboard({ user, isDarkMode, onRoleChange }) {
           <div className="animate-fade-in">
             <ChatWindow
               chat={selectedChat}
-              currentUserId={user.id}
+              currentUserId={user.id.toString()}
               onBack={() => setSelectedChatId(null)}
+              onClose={() => setSelectedChatId(null)}
               isDarkMode={isDarkMode}
               isReadOnly={selectedChat.status === "closed"}
             />
@@ -118,7 +132,7 @@ export default function ClientDashboard({ user, isDarkMode, onRoleChange }) {
                     users={users}
                     onChatSelect={setSelectedChatId}
                     isDarkMode={isDarkMode}
-                    currentUserId={user.id}
+                    currentUserId={user.id.toString()}
                   />
                 )}
               </div>
@@ -128,7 +142,7 @@ export default function ClientDashboard({ user, isDarkMode, onRoleChange }) {
                 users={users}
                 onChatSelect={setSelectedChatId}
                 isDarkMode={isDarkMode}
-                currentUserId={user.id}
+                currentUserId={user.id.toString()}
               />
             )}
           </div>

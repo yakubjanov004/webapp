@@ -1,11 +1,29 @@
 "use client"
 
-import { createContext, useContext } from "react"
+import { createContext, useContext, ReactNode } from "react"
 
-const ThemeContext = createContext()
+interface ThemeContextType {
+  isDark: boolean
+  colors: {
+    primary: string
+    secondary: string
+    accent: string
+    surface: string
+    background: string
+    text: string
+    textSecondary: string
+  }
+}
 
-export function ThemeProvider({ children, isDarkMode }) {
-  const theme = {
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
+
+interface ThemeProviderProps {
+  children: ReactNode
+  isDarkMode: boolean
+}
+
+export function ThemeProvider({ children, isDarkMode }: ThemeProviderProps) {
+  const theme: ThemeContextType = {
     isDark: isDarkMode,
     colors: isDarkMode
       ? {

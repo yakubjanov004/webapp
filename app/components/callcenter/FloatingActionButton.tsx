@@ -2,7 +2,11 @@
 
 import { useState } from "react"
 
-export default function FloatingActionButton({ isDarkMode }) {
+interface FloatingActionButtonProps {
+  isDarkMode: boolean
+}
+
+export default function FloatingActionButton({ isDarkMode }: FloatingActionButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   const quickActions = [
